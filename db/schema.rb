@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801002446) do
+ActiveRecord::Schema.define(version: 20160803140021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,39 +25,43 @@ ActiveRecord::Schema.define(version: 20160801002446) do
 
   add_index "examples", ["user_id"], name: "index_examples_on_user_id", using: :btree
 
-  create_table "start_ups", force: :cascade do |t|
+  create_table "ideas", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "owner"
     t.string   "problem"
     t.string   "solution"
     t.string   "market"
     t.string   "product"
-    t.string   "competition"
-    t.string   "advantage"
     t.string   "model"
+    t.string   "advantage"
     t.string   "strategy"
+    t.string   "owner"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "person"
   end
 
-  add_index "start_ups", ["user_id"], name: "index_start_ups_on_user_id", using: :btree
+  add_index "ideas", ["user_id"], name: "index_ideas_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",           null: false
-    t.string   "token",           null: false
-    t.string   "password_digest", null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "email",               null: false
+    t.string   "token",               null: false
+    t.string   "password_digest",     null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "givenname"
     t.string   "lastname"
     t.string   "location"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
   add_foreign_key "examples", "users"
-  add_foreign_key "start_ups", "users"
+  add_foreign_key "ideas", "users"
 end

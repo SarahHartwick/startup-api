@@ -4,4 +4,5 @@
 # Examples:
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-  Idea.create(name: 'AirBnB', description: "a platform for short-term housing rentals");
+  Competitor.create(name: 'AirBnB', description: "a platform for short-term housing rentals", idea_id:37);
+  Competitor.create(name: 'CouchSurfing', description: "a platform for short-term housing rentals", idea_id:37);

@@ -1,4 +1,9 @@
 class IdeaSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :problem, :solution, :market, :product, :model, :advantage, :strategy, :owner, :person
-  has_one :user
+  attributes :id, :name, :description, :problem, :solution, :market, :product,
+  :user, :model, :advantage, :competitors, :strategy, :owner, :person
+  
+  def competitors
+    object.competitors.pluck(:id)
+  end
+
 end

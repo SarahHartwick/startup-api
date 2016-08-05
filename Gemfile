@@ -9,13 +9,13 @@ gem 'pg'
 gem 'bcrypt', '~> 3.1.11'
 gem 'paperclip', '~> 5.0.0'
 gem 'aws-sdk', '>= 2.0.34'
+gem 'dotenv-rails', groups: [:development, :test, :production]
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
 end
 
 group :development, :test do
-  gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
   gem 'pry', '~> 0.10.3'
   gem 'byebug', '~> 8.2.2'
   gem 'pry-byebug', '~> 3.3.0'

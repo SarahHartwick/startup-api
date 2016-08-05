@@ -182,7 +182,7 @@ DEPENDENCIES
   aws-sdk (>= 2.0.34)
   bcrypt (~> 3.1.11)
   byebug (~> 8.2.2)
-  dotenv-rails (~> 2.1, >= 2.1.1)
+  dotenv-rails
   paperclip (~> 5.0.0)
   pg
   pry (~> 0.10.3)

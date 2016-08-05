@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :members, except: [:new, :edit]
   resources :uploads, except: [:new, :edit]
   resources :competitors, except: [:new, :edit]
   resources :ideas, except: [:new, :edit]

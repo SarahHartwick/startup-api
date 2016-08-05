@@ -44,9 +44,13 @@ end
   # DELETE /ideas/1
   # DELETE /ideas/1.json
   def destroy
-    @idea.destroy
+    if @idea.user_id == @current_user.id
+      @idea.destroy
 
-    head :no_content
+      head :no_content
+    else
+      render json: @idea.errors, status: :unprocessable_entity
+    end
   end
 
   private

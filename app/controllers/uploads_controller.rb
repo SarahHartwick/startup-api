@@ -1,5 +1,6 @@
-class UploadsController < ApplicationController
+class UploadsController < ProtectedController
   before_action :set_upload, only: [:show, :update, :destroy]
+  before_action :authenticate, only: [:create, :update, :destroy]
 
   def sign
     @expires = 10.hours.from_now.utc.iso8601
@@ -74,20 +75,25 @@ end
   # PATCH/PUT /uploads/1.json
   def update
     @upload = Upload.find(params[:id])
-
-    if @upload.update(upload_params)
-      head :no_content
-    else
-      render json: @upload.errors, status: :unprocessable_entity
+    if @upload.idea.user_id == @current_user.id
+      if @upload.update(upload_params)
+        head :no_content
+      else
+        render json: @upload.errors, status: :unprocessable_entity
+      end
     end
   end
 
   # DELETE /uploads/1
   # DELETE /uploads/1.json
   def destroy
-    @upload.destroy
+    if @upload.idea.user_id == @current_user.id
+      @upload.destroy
 
-    head :no_content
+      head :no_content
+    else
+      render json: @upload.errors, status: :unprocessable_entity
+    end
   end
 
   private

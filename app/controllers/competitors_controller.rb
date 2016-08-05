@@ -1,5 +1,6 @@
-class CompetitorsController < ApplicationController
+class CompetitorsController < ProtectedController
   before_action :set_competitor, only: [:show, :update, :destroy]
+  before_action :authenticate, only: [:create, :update, :destroy]
 
   # GET /competitors
   # GET /competitors.json
@@ -31,20 +32,25 @@ class CompetitorsController < ApplicationController
   # PATCH/PUT /competitors/1.json
   def update
     @competitor = Competitor.find(params[:id])
-
-    if @competitor.update(competitor_params)
-      head :no_content
-    else
-      render json: @competitor.errors, status: :unprocessable_entity
+    if @competitor.idea.user_id == @current_user.id
+      if @competitor.update(competitor_params)
+        head :no_content
+      else
+        render json: @competitor.errors, status: :unprocessable_entity
+      end
     end
   end
 
   # DELETE /competitors/1
   # DELETE /competitors/1.json
   def destroy
-    @competitor.destroy
+    if @competitor.idea.user_id == @current_user.id
+      @competitor.destroy
 
-    head :no_content
+      head :no_content
+    else
+      render json: @competitor.errors, status: :unprocessable_entity
+    end
   end
 
   private
